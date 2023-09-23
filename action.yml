@@ -1,0 +1,27 @@
+name: pkgx/dev
+description:
+  runs `pkgx`’s `dev` tool making the resulting packages available to this job
+
+inputs:
+  path:
+    required: false
+
+runs:
+  using: composite
+  steps:
+    - uses: pkgxdev/setup@v1
+
+    - run: |
+        if [ -n "${{ inputs.path }}" ]; then
+          cd "${{ inputs.path }}"
+        fi
+
+        for ln in $(pkgx --internal.activate "$PWD"); do
+          case "$ln" in
+          PATH=*)
+            echo "$ln" | sed -e's/^PATH=//' | tr : \\n >> $GITHUB_PATH;;
+          *=*)
+            echo "$ln" >> $GITHUB_ENV;;
+          esac
+        done
+      shell: bash
