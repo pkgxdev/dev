@@ -16,5 +16,8 @@ runs:
           cd "${{ inputs.path }}"
         fi
         pkgx --internal.activate "$PWD" > file
-        node parse.js
+        if ! command -v node >/dev/null 2>&1; then
+          eval "$(pkgx +node)"
+        fi
+        node $GITHUB_ACTION_PATH/parse.js
       shell: bash

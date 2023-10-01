@@ -6,6 +6,12 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        container:
+          - null
+          - ubuntu
+    container: ${{ matrix.container }}
     steps:
       - uses: actions/checkout@v4
       - run: echo '{}' > deno.json
