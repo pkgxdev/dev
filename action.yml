@@ -15,13 +15,6 @@ runs:
         if [ -n "${{ inputs.path }}" ]; then
           cd "${{ inputs.path }}"
         fi
-
-        for ln in $(pkgx --internal.activate "$PWD"); do
-          case "$ln" in
-          PATH=*)
-            echo "$ln" | sed -e's/^PATH=//' | tr : \\n >> $GITHUB_PATH;;
-          *=*)
-            echo "$ln" >> $GITHUB_ENV;;
-          esac
-        done
+        pkgx --internal.activate "$PWD" > file
+        node parse.js
       shell: bash

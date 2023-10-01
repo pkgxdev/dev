@@ -1,0 +1,15 @@
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: echo '{}' > deno.json
+      - uses: ./
+      - run: echo $PATH
+      - run: env
+      - run: deno --version
