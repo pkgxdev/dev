@@ -12,13 +12,19 @@ runs:
     - uses: pkgxdev/setup@v2
 
     - run: |
-        if [ -n "${{ inputs.path }}" ]; then
-          cd "${{ inputs.path }}"
-        fi
         TMP="$(mktemp)"
         pkgx --internal.activate "$PWD" > "$TMP"
-        if ! command -v node >/dev/null 2>&1; then
+        echo "file=$TMP" >> $GITHUB_OUTPUT
+      id: env
+      working-directory: ${{ inputs.path }}
+      shell: bash
+
+    # github can not be relied on apparently to provide a working node…
+    - run: |
+        if ! node --version >/dev/null 2>&1; then
           eval "$(pkgx +node)"
         fi
-        node "$GITHUB_ACTION_PATH"/parse.js "$TMP"
+      shell: bash
+
+    - run: node "$GITHUB_ACTION_PATH"/parse.js ${{ steps.env.outputs.file }}
       shell: bash
