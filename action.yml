@@ -19,12 +19,9 @@ runs:
       working-directory: ${{ inputs.path }}
       shell: bash
 
-    # github can not be relied on apparently to provide a working node…
     - run: |
         if ! node --version >/dev/null 2>&1; then
           eval "$(pkgx +node)"
         fi
-      shell: bash
-
-    - run: node "$GITHUB_ACTION_PATH"/parse.js ${{ steps.env.outputs.file }}
+        node "$GITHUB_ACTION_PATH"/parse.js ${{ steps.env.outputs.file }}
       shell: bash
