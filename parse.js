@@ -24,10 +24,11 @@ readInterface.on('line', (line) => {
         const [_, key, value_] = match;
         const value = stripQuotes(value_);
         if (key === 'PATH') {
-            value.split(':').forEach((path) => {
-                path = path
-                  .replaceAll(/\$\{.+?\}/g, '')
-                  .replaceAll(/\$[a-zA-Z0-9_]+/g, '')
+            value
+              .replaceAll('${PATH:+:$PATH}', '')
+              .replaceAll('$PATH', '')
+              .replaceAll('${PATH}', '')
+              .split(':').forEach(path => {
                 fs.appendFileSync(process.env['GITHUB_PATH'], `${path}\n`);
             });
         } else {
