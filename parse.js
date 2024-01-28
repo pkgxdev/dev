@@ -11,9 +11,9 @@ const stripQuotes = (str) => str.startsWith('"') || str.startsWith("'") ? str.sl
 
 const replaceEnvVars = (str) => {
     const value = str
-      .replaceAll(/\$[a-zA-Z0-9_]+/g, (_, key) => process.env[key] ?? '')
-      .replaceAll(/\$\{[a-zA-Z0-9_]+:\+:\$[a-zA-Z0-9_]+\}/g, (_, key) => (v => v ? `:${v}` : '')(process.env[key]))
-      .replaceAll(/\$\{[a-zA-Z0-9_]+\}/g, (_, key) => process.env[key] ?? '')
+      .replaceAll(/\$\{([a-zA-Z0-9_]+):\+:\$[a-zA-Z0-9_]+\}/g, (_, key) => (v => v ? `:${v}` : '')(process.env[key]))
+      .replaceAll(/\$\{([a-zA-Z0-9_]+)\}/g, (_, key) => process.env[key] ?? '')
+      .replaceAll(/\$([a-zA-Z0-9_]+)/g, (_, key) => process.env[key] ?? '')
     console.error("FOO", str, value)
     return value
 };
@@ -26,7 +26,7 @@ readInterface.on('line', (line) => {
         if (key === 'PATH') {
             value.split(':').forEach((path) => {
                 path = path
-                  .replaceAll(/\${.+?\}/g, '')
+                  .replaceAll(/\$\{.+?\}/g, '')
                   .replaceAll(/\$[a-zA-Z0-9_]+/g, '')
                 fs.appendFileSync(process.env['GITHUB_PATH'], `${path}\n`);
             });
