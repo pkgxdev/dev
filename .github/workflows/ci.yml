@@ -15,9 +15,7 @@ jobs:
     container: ${{ matrix.container }}
     steps:
       - uses: actions/checkout@v4
-      - run: |
-          echo '{}' > package.json
-          echo '{}' > deno.json
+      - run: echo '{}' > deno.json
       - uses: ./
       - run: echo $PATH
       - run: env

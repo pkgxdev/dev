@@ -2,7 +2,7 @@ const fs = require('fs');
 const readline = require('readline');
 
 const readInterface = readline.createInterface({
-    input: fs.createReadStream('file'),
+    input: fs.createReadStream(process.argsv[2]),
     output: process.stdout,
     terminal: false
 });
@@ -11,9 +11,9 @@ const stripQuotes = (str) => str.startsWith('"') || str.startsWith("'") ? str.sl
 
 const replaceEnvVars = (str) => {
   return str
-    .replace(/\$.+?\b/g, (_, key) => process.env[key] ?? '')
-    .replace(/\$\{.+?\}/g, (_, key) => process.env[key] ?? '')
-    .replace(/\$\{.+?:\+:.+?\}/g, (_, key) => (v => v ? `:${v}` : '')(process.env[key]))
+    .replace(/\$[a-zA-Z0-9_]+/g, (_, key) => process.env[key] ?? '')
+    .replace(/\$\{[a-zA-Z0-9_]+:\+:[a-zA-Z0-9_]+\}/g, (_, key) => (v => v ? `:${v}` : '')(process.env[key]))
+    .replace(/\$\{[a-zA-Z0-9_]+\}/g, (_, key) => process.env[key] ?? '')
 };
 
 readInterface.on('line', (line) => {

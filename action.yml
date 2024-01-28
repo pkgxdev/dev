@@ -15,9 +15,10 @@ runs:
         if [ -n "${{ inputs.path }}" ]; then
           cd "${{ inputs.path }}"
         fi
+        TMP="$(mktemp)"
         pkgx --internal.activate "$PWD" > file
         if ! command -v node >/dev/null 2>&1; then
           eval "$(pkgx +node)"
         fi
-        node $GITHUB_ACTION_PATH/parse.js
+        node $GITHUB_ACTION_PATH/parse.js "$TMP"
       shell: bash
