@@ -20,5 +20,5 @@ runs:
         if ! command -v node >/dev/null 2>&1; then
           eval "$(pkgx +node)"
         fi
-        node $GITHUB_ACTION_PATH/parse.js "$TMP"
+        node "$GITHUB_ACTION_PATH"/parse.js "$TMP"
       shell: bash

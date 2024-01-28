@@ -1,6 +1,8 @@
 const fs = require('fs');
 const readline = require('readline');
 
+console.error("FOO", process.argv)
+
 const readInterface = readline.createInterface({
     input: fs.createReadStream(process.argv[2]),
     output: process.stdout,
@@ -10,11 +12,11 @@ const readInterface = readline.createInterface({
 const stripQuotes = (str) => str.startsWith('"') || str.startsWith("'") ? str.slice(1, -1) : str;
 
 const replaceEnvVars = (str) => {
-  console.error("FOO", str)
-  return str
-    .replace(/\$[a-zA-Z0-9_]+/g, (_, key) => process.env[key] ?? '')
-    .replace(/\$\{[a-zA-Z0-9_]+:\+:[a-zA-Z0-9_]+\}/g, (_, key) => (v => v ? `:${v}` : '')(process.env[key]))
-    .replace(/\$\{[a-zA-Z0-9_]+\}/g, (_, key) => process.env[key] ?? '')
+    console.error("FOO", str)
+    return str
+      .replaceAll(/\$[a-zA-Z0-9_]+/g, (_, key) => process.env[key] ?? '')
+      .replaceAll(/\$\{[a-zA-Z0-9_]+:\+:[a-zA-Z0-9_]+\}/g, (_, key) => (v => v ? `:${v}` : '')(process.env[key]))
+      .replaceAll(/\$\{[a-zA-Z0-9_]+\}/g, (_, key) => process.env[key] ?? '')
 };
 
 readInterface.on('line', (line) => {
