@@ -10,10 +10,10 @@ const readInterface = readline.createInterface({
 const stripQuotes = (str) => str.startsWith('"') || str.startsWith("'") ? str.slice(1, -1) : str;
 
 const replaceEnvVars = (str) => {
-  return str.replace(/(:?)\$\{([^}]+)\}/g, (match, precedingColon, varName) => {
-      const envValue = process.env[varName];
-      return envValue ? `${precedingColon}${envValue}` : (precedingColon ? '' : envValue);
-  });
+  return str
+    .replace(/\$.+?\b/g, (_, key) => process.env[key] ?? '')
+    .replace(/\$\{.+?\}/g, (_, key) => process.env[key] ?? '')
+    .replace(/\$\{.+?:\+:.+?\}/g, (_, key) => (v => v ? `:${v}` : '')(process.env[key]))
 };
 
 readInterface.on('line', (line) => {
