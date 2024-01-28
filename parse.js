@@ -2,7 +2,7 @@ const fs = require('fs');
 const readline = require('readline');
 
 const readInterface = readline.createInterface({
-    input: fs.createReadStream(process.argsv[2]),
+    input: fs.createReadStream(process.argv[2]),
     output: process.stdout,
     terminal: false
 });
