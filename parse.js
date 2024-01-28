@@ -12,7 +12,7 @@ const stripQuotes = (str) => str.startsWith('"') || str.startsWith("'") ? str.sl
 const replaceEnvVars = (str) => {
     console.error("FOO", str, str
     .replaceAll(/\$[a-zA-Z0-9_]+/g, (_, key) => process.env[key] ?? '')
-    .replaceAll(/\$\{[a-zA-Z0-9_]+:\+:[a-zA-Z0-9_]+\}/g, (_, key) => (v => v ? `:${v}` : '')(process.env[key]))
+    .replaceAll(/\$\{[a-zA-Z0-9_]+:\+:\$[a-zA-Z0-9_]+\}/g, (_, key) => (v => v ? `:${v}` : '')(process.env[key]))
     .replaceAll(/\$\{[a-zA-Z0-9_]+\}/g, (_, key) => process.env[key] ?? ''))
     return str
       .replaceAll(/\$[a-zA-Z0-9_]+/g, (_, key) => process.env[key] ?? '')
