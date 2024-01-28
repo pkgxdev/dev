@@ -10,14 +10,12 @@ const readInterface = readline.createInterface({
 const stripQuotes = (str) => str.startsWith('"') || str.startsWith("'") ? str.slice(1, -1) : str;
 
 const replaceEnvVars = (str) => {
-    console.error("FOO", str, str
-    .replaceAll(/\$[a-zA-Z0-9_]+/g, (_, key) => process.env[key] ?? '')
-    .replaceAll(/\$\{[a-zA-Z0-9_]+:\+:\$[a-zA-Z0-9_]+\}/g, (_, key) => (v => v ? `:${v}` : '')(process.env[key]))
-    .replaceAll(/\$\{[a-zA-Z0-9_]+\}/g, (_, key) => process.env[key] ?? ''))
-    return str
+    const value = str
       .replaceAll(/\$[a-zA-Z0-9_]+/g, (_, key) => process.env[key] ?? '')
-      .replaceAll(/\$\{[a-zA-Z0-9_]+:\+:[a-zA-Z0-9_]+\}/g, (_, key) => (v => v ? `:${v}` : '')(process.env[key]))
+      .replaceAll(/\$\{[a-zA-Z0-9_]+:\+:\$[a-zA-Z0-9_]+\}/g, (_, key) => (v => v ? `:${v}` : '')(process.env[key]))
       .replaceAll(/\$\{[a-zA-Z0-9_]+\}/g, (_, key) => process.env[key] ?? '')
+    console.error("FOO", str, value)
+    return value
 };
 
 readInterface.on('line', (line) => {
@@ -27,9 +25,10 @@ readInterface.on('line', (line) => {
         const value = stripQuotes(value_);
         if (key === 'PATH') {
             value.split(':').forEach((path) => {
-                if (!path.startsWith("$")) {
-                  fs.appendFileSync(process.env['GITHUB_PATH'], `${path}\n`);
-                }
+                path = path
+                  .replaceAll(/\${.+?\}/g, '')
+                  .replaceAll(/\$[a-zA-Z0-9_]+/g, '')
+                fs.appendFileSync(process.env['GITHUB_PATH'], `${path}\n`);
             });
         } else {
             let v = replaceEnvVars(value);
