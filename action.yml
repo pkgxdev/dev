@@ -16,7 +16,7 @@ runs:
           cd "${{ inputs.path }}"
         fi
         TMP="$(mktemp)"
-        pkgx --internal.activate "$PWD" > file
+        pkgx --internal.activate "$PWD" > "$TMP"
         if ! command -v node >/dev/null 2>&1; then
           eval "$(pkgx +node)"
         fi

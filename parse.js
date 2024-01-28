@@ -1,8 +1,6 @@
 const fs = require('fs');
 const readline = require('readline');
 
-console.error("FOO", process.argv)
-
 const readInterface = readline.createInterface({
     input: fs.createReadStream(process.argv[2]),
     output: process.stdout,
