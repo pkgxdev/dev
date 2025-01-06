@@ -5,7 +5,7 @@ on:
   pull_request:
 
 jobs:
-  test:
+  test-action:
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -15,8 +15,22 @@ jobs:
     container: ${{ matrix.container }}
     steps:
       - uses: actions/checkout@v4
+        with:
+          path: clone
       - run: echo '{}' > deno.json
-      - uses: ./
+      - run: "! deno"
+      - uses: ./clone
       - run: echo $PATH
       - run: env
       - run: deno --version
+
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: denolib/setup-deno@v2
+        with:
+          deno-version: v2.x
+      - run: deno fmt --check .
+      - run: deno lint .
+      - run: deno check ./app.ts

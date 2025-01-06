@@ -13,7 +13,7 @@ runs:
 
     - run: |
         TMP="$(mktemp)"
-        pkgx --internal.activate "$PWD" > "$TMP"
+        "$GITHUB_ACTION_PATH"/app.ts "$PWD" > "$TMP"
         echo "file=$TMP" >> $GITHUB_OUTPUT
       id: env
       working-directory: ${{ inputs.path }}
@@ -21,7 +21,9 @@ runs:
 
     - run: |
         if ! node --version >/dev/null 2>&1; then
+          set -a
           eval "$(pkgx +node)"
+          set +a
         fi
         node "$GITHUB_ACTION_PATH"/parse.js ${{ steps.env.outputs.file }}
       shell: bash
