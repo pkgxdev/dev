@@ -11,7 +11,7 @@ jobs:
       matrix:
         container:
           - null
-          - ubuntu
+        #  - ubuntu FIXME pkgx node fails to load with missing libcrypto.1.1.dylib
     container: ${{ matrix.container }}
     steps:
       - uses: actions/checkout@v4
