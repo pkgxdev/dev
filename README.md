@@ -7,9 +7,10 @@ packages you need for different projects as you navigate in your shell.
 
 ```sh
 pkgx dev integrate
+# ^^ supports Bash & Zsh. PRs welcome for more shells
 ```
 
-> [!NOTE]
+> [!IMPORTANT]
 >
 > `pkgx` is a required dependency.
 >
@@ -17,6 +18,8 @@ pkgx dev integrate
 > brew install pkgxdev/made/pkgx || sh <(curl https://pkgx.sh)
 > ```
 
+> [!NOTE]
+>
 > `pkgx dev integrate` looks for and edits known `shell.rc` files adding one
 > line:
 >
@@ -29,26 +32,8 @@ pkgx dev integrate
 > ```sh
 > pkgx dev integrate --dry-run
 > ```
-
-> We support **Bash** and **Zsh**. We would love to support more shells. PRs
-> very welcome.
-
-> [!TIP]
+>
 > If you like, preview the shellcode: `pkgx dev --shellcode`.
-
-> [!TIP]
->
-> ### Try Before You `vi`
->
-> Modifying your `shell.rc` can be… _intimidating_. If you just want to
-> temporarily try `dev` out before you `:wq`—we got you:
->
-> ```sh
-> $ cd my-project
-> $ eval "$(pkgx dev)"
-> ```
->
-> The devenv will only exist for the duration of your shell session.
 
 ## Usage
 
@@ -73,6 +58,20 @@ $ cd ..
 $ node
 command not found: node
 ```
+
+> [!TIP]
+>
+> ### Try Before You `vi`
+>
+> Modifying your `shell.rc` can be… _intimidating_. If you just want to
+> temporarily try `dev` out before you `:wq`—we got you:
+>
+> ```sh
+> $ cd my-project
+> $ eval "$(pkgx dev)"
+> ```
+>
+> The devenv will only exist for the duration of your shell session.
 
 ## How Packages are Determined
 
@@ -125,6 +124,13 @@ You can add your own environment variables if you like:
 # env:
 #   MY_VAR: my-value
 ```
+
+> [!CAUTION]
+>
+> The assignment of these variables are run through the shell, so you can do
+> stuff like `$(pwd)` if you like. Obviously, be careful with that—we don’t
+> sanitize the input. We will accept a PR to escape this by default or something
+> ∵ we agree this is maybe a bit insane.
 
 ## GitHub Actions
 
