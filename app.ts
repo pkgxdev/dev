@@ -71,10 +71,10 @@ for (const envln of env.trim().split("\n")) {
 
   const [key] = envln.split("=", 2);
   undo += `    if [ \\"$${key}\\" ]; then
-      export ${key}=\\"$${key}\\"
-    else
-      unset ${key}
-    fi\n`;
+    export ${key}=\\"$${key}\\"
+  else
+    unset ${key}
+  fi\n`;
 }
 
 const dir = Deno.cwd();
@@ -84,14 +84,10 @@ const bye_bye_msg = pkgspecs.map((pkgspec) => `-${pkgspec.slice(1)}`).join(" ");
 console.log(`
 eval "_pkgx_dev_try_bye() {
   suffix=\\"\\\${PWD#\\"${dir}\\"}\\"
-  if test \\"\\$PWD\\" != \\"${dir}$suffix\\"; then
-    ${undo.trim()}
-    unset -f _pkgx_dev_try_bye
-    echo -e \\"\\033[31m${bye_bye_msg}\\033[0m\\" >&2
-    return 0
-  else
-    return 1
-  fi
+  [ \\"\\$PWD\\" = \\"${dir}$suffix\\" ] && return 1
+  echo -e \\"\\033[31m${bye_bye_msg}\\033[0m\\" >&2
+  ${undo.trim()}
+  unset -f _pkgx_dev_try_bye
 }"
 
 set -a
