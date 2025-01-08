@@ -29,7 +29,7 @@ if (snuff.pkgs.length === 0 && Object.keys(snuff.env).length === 0) {
   Deno.exit(1);
 }
 
-let env = '';
+let env = "";
 const pkgspecs = snuff.pkgs.map((pkg) => `+${utils.pkg.str(pkg)}`);
 
 if (snuff.pkgs.length > 0) {
@@ -60,7 +60,7 @@ for (const envln of env.trim().split("\n")) {
   const value = Deno.env.get(key);
 
   if (value) {
-    undo += `    export ${key}=${shell_escape(value)}\n`;
+    undo += `    export ${key}=\\"$${key}\\"\n`;
   } else {
     undo += `    unset ${key}\n`;
   }
@@ -71,21 +71,20 @@ const dir = Deno.cwd();
 const bye_bye_msg = pkgspecs.map((pkgspec) => `-${pkgspec.slice(1)}`).join(" ");
 
 console.log(`
-set -a
-${env}
-set +a
-
-_pkgx_dev_try_bye() {
-  suffix="\${PWD#"${dir}"}"
-  if test "$PWD" != "${dir}$suffix"; then
+eval "_pkgx_dev_try_bye() {
+  suffix=\\"\\\${PWD#\\"${dir}\\"}\\"
+  if test \\"\\$PWD\\" != \\"${dir}$suffix\\"; then
     ${undo.trim()}
     unset -f _pkgx_dev_try_bye
-    echo "\\033[31m${bye_bye_msg}\\033[0m" >&2
+    echo -e \\"\\033[31m${bye_bye_msg}\\033[0m\\" >&2
     return 0
   else
     return 1
   fi
-}
-`.trim());
+}"
+
+set -a
+${env}
+set +a`);
 
 console.error("%c%s", "color: green", pkgspecs.join(" "));

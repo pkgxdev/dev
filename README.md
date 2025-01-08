@@ -10,6 +10,7 @@ echo 'eval "$(pkgx dev --shellcode)"' >> ~/.zshrc
 ```
 
 > [!NOTE]
+>
 > `pkgx` is a required dependency.
 >
 > ```sh
