@@ -8,6 +8,7 @@ import shellcode from "./src/shellcode().ts";
 import sniff from "./src/sniff.ts";
 import shell_escape from "./src/shell-escape.ts";
 import app_version from "./src/app-version.ts";
+import integrate from "./src/integrate.ts";
 
 switch (Deno.args[0]) {
   case "--help": {
@@ -25,6 +26,13 @@ switch (Deno.args[0]) {
     console.log(`dev ${app_version}`);
     Deno.exit(0);
     break; // deno lint insists
+  case "integrate":
+    await integrate("install", { dryrun: Deno.args[1] == "--dry-run" });
+    Deno.exit(0);
+    break;
+  case "deintegrate":
+    await integrate("uninstall", { dryrun: Deno.args[1] == "--dry-run" });
+    Deno.exit(0);
 }
 
 const snuff = await sniff(Path.cwd());

@@ -5,6 +5,7 @@
     "jsr:@std/crypto@1": "1.0.3",
     "jsr:@std/encoding@1": "1.0.5",
     "jsr:@std/fs@1": "1.0.8",
+    "jsr:@std/io@*": "0.225.0",
     "jsr:@std/io@0.225": "0.225.0",
     "jsr:@std/json@1": "1.0.0",
     "jsr:@std/jsonc@*": "1.0.1",
