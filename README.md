@@ -9,7 +9,10 @@ packages you need for different projects as you navigate in your shell.
 pkgx dev integrate
 ```
 
-> [!NOTE]
+We support macOS & Linux, **Bash** & **Zsh**. PRs are very welcome for more
+shells.
+
+> [!IMPORTANT]
 >
 > `pkgx` is a required dependency.
 >
@@ -17,6 +20,8 @@ pkgx dev integrate
 > brew install pkgxdev/made/pkgx || sh <(curl https://pkgx.sh)
 > ```
 
+> [!NOTE]
+>
 > `pkgx dev integrate` looks for and edits known `shell.rc` files adding one
 > line:
 >
@@ -29,12 +34,33 @@ pkgx dev integrate
 > ```sh
 > pkgx dev integrate --dry-run
 > ```
-
-> We support **Bash** and **Zsh**. We would love to support more shells. PRs
-> very welcome.
-
-> [!TIP]
+>
 > If you like, preview the shellcode: `pkgx dev --shellcode`.
+
+## Usage
+
+```sh
+$ cd my-project
+
+my-project $ ls
+package.json
+
+my-project $ dev
++nodejs.org
+# ^^ installs node to ~/.pkgx/nodejs.org/v22.12.0 if not already installed
+
+my-project $ node --version
+v22.12.0
+
+$ which node
+~/.pkgx/nodejs.org/v22.12.0/bin/node
+
+$ cd ..
+-nodejs.org
+
+$ node
+command not found: node
+```
 
 > [!TIP]
 >
@@ -49,30 +75,6 @@ pkgx dev integrate
 > ```
 >
 > The devenv will only exist for the duration of your shell session.
-
-## Usage
-
-```sh
-$ cd my-project
-
-my-project $ ls
-package.json
-
-my-project $ dev
-+nodejs.org
-
-my-project $ node --version
-v22.12.0
-
-$ which node
-~/.pkgx/nodejs.org/v22.12.0/bin/node
-
-$ cd ..
--nodejs.org
-
-$ node
-command not found: node
-```
 
 ## How Packages are Determined
 
@@ -126,6 +128,13 @@ You can add your own environment variables if you like:
 #   MY_VAR: my-value
 ```
 
+> [!CAUTION]
+>
+> The assignment of these variables are run through the shell, so you can do
+> stuff like `$(pwd)` if you like. Obviously, be careful with that—we don’t
+> sanitize the input. We will accept a PR to escape this by default or something
+> ∵ we agree this is maybe a bit insane.
+
 ## GitHub Actions
 
 ```yaml
@@ -136,5 +145,7 @@ Installs needed packages and sets up the environment the same as `dev` does in
 your terminal.
 
 ## Contributing
+
+We use `deno`, so either install that or—you know—type `dev`.
 
 Edit [./src/sniff.ts](src/sniff.ts) to add new dev types.
