@@ -92,4 +92,4 @@ You can add your own environment variables if you like:
 
 ## Contributing
 
-Mostly you will likely want to edit [./src/sniff.ts] to add new dev types.
+Edit [./src/sniff.ts](src/sniff.ts) to add new dev types.
