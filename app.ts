@@ -57,13 +57,11 @@ for (const envln of env.trim().split("\n")) {
   if (!envln) continue;
 
   const [key] = envln.split("=", 2);
-  const value = Deno.env.get(key);
-
-  if (value) {
-    undo += `    export ${key}=\\"$${key}\\"\n`;
-  } else {
-    undo += `    unset ${key}\n`;
-  }
+  undo += `    if [ \\"$${key}\\" ]; then
+      export ${key}=\\"$${key}\\"
+    else
+      unset ${key}
+    fi\n`;
 }
 
 const dir = Deno.cwd();
