@@ -32,7 +32,7 @@ dev() {
   off)
     if type -f _pkgx_dev_try_bye >/dev/null 2>&1; then
       rm "${datadir}$PWD/dev.pkgx.activated"
-      _pkgx_dev_try_bye
+      PWD=/ _pkgx_dev_try_bye
     else
       echo "no devenv" >&2
     fi;;
