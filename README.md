@@ -9,6 +9,9 @@ packages you need for different projects as you navigate in your shell.
 echo 'eval "$(pkgx dev --shellcode)"' >> ~/.zshrc
 ```
 
+We support bashlike shells (adapt the rc file above). Fish support is welcome,
+but I don’t understand Fish so please PR!
+
 > [!NOTE]
 >
 > `pkgx` is a required dependency.
@@ -20,20 +23,40 @@ echo 'eval "$(pkgx dev --shellcode)"' >> ~/.zshrc
 > [!TIP]
 > If you like, preview the shellcode: `pkgx dev --shellcode`.
 
+> [!TIP]
+>
+> ### Try Before You `vi`
+>
+> Modifying your `shell.rc` can be… _intimidating_. If you just want to
+> temporarily try `dev` out before you `:wq`—we got you:
+>
+> ```sh
+> $ cd my-project
+> $ eval "$(pkgx dev)"
+> ```
+>
+> The devenv will only exist for the duration of your shell session.
+
 ## Usage
 
 ```sh
 $ cd my-project
+
 my-project $ ls
 package.json
+
 my-project $ dev
 +nodejs.org
+
 my-project $ node --version
 v22.12.0
+
 $ which node
 ~/.pkgx/nodejs.org/v22.12.0/bin/node
+
 $ cd ..
 -nodejs.org
+
 $ node
 command not found: node
 ```
