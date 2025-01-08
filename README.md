@@ -126,6 +126,15 @@ You can add your own environment variables if you like:
 #   MY_VAR: my-value
 ```
 
+## GitHub Actions
+
+```yaml
+- uses: pkgxdev/dev@v1
+```
+
+Installs needed packages and sets up the environment the same as `dev` does in
+your terminal.
+
 ## Contributing
 
 Edit [./src/sniff.ts](src/sniff.ts) to add new dev types.
