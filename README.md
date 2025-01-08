@@ -6,11 +6,8 @@ packages you need for different projects as you navigate in your shell.
 ## Installation
 
 ```sh
-echo 'eval "$(pkgx dev --shellcode)"' >> ~/.zshrc
+pkgx dev integrate
 ```
-
-We support bashlike shells (adapt the rc file above). Fish support is welcome,
-but I don’t understand Fish so please PR!
 
 > [!NOTE]
 >
@@ -19,6 +16,22 @@ but I don’t understand Fish so please PR!
 > ```sh
 > brew install pkgxdev/made/pkgx || sh <(curl https://pkgx.sh)
 > ```
+
+> `pkgx dev integrate` looks for and edits known `shell.rc` files adding one
+> line:
+>
+> ```sh
+> eval "$(pkgx dev --shellcode)"
+> ```
+>
+> If you don’t trust us (good on you), then do a dry run first:
+>
+> ```sh
+> pkgx dev integrate --dry-run
+> ```
+
+> We support **Bash** and **Zsh**. We would love to support more shells. PRs
+> very welcome.
 
 > [!TIP]
 > If you like, preview the shellcode: `pkgx dev --shellcode`.
