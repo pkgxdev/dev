@@ -37,7 +37,9 @@ dev() {
       echo "no devenv" >&2
     fi;;
   ''|on)
-    if ! type -f _pkgx_dev_try_bye >/dev/null 2>&1; then
+    if [ "$2" ]; then
+      "${dev_cmd}" "$@"
+    elif ! type -f _pkgx_dev_try_bye >/dev/null 2>&1; then
       mkdir -p "${datadir}$PWD"
       touch "${datadir}$PWD/dev.pkgx.activated"
       eval "$(${dev_cmd})"
@@ -45,7 +47,7 @@ dev() {
       echo "devenv already active" >&2
     fi;;
   *)
-    ${dev_cmd} "$@";;
+    "${dev_cmd}" "$@";;
   esac
 }
 
