@@ -1,12 +1,13 @@
 #!/usr/bin/env -S pkgx deno^2 run -A
 
-//TODO if you step into dev-dir/subdir does it work?
+//TODO if you step into dev-dir/subdir and type `dev` does it find the root properly?
 //TODO dev off uses PWD which may not be correct if in subdir (obv)
 
 import { Path, utils } from "libpkgx";
 import shellcode from "./src/shellcode().ts";
 import sniff from "./src/sniff.ts";
 import shell_escape from "./src/shell-escape.ts";
+import app_version from "./src/app-version.ts";
 
 switch (Deno.args[0]) {
   case "--help": {
@@ -18,6 +19,10 @@ switch (Deno.args[0]) {
   }
   case "--shellcode":
     console.log(shellcode());
+    Deno.exit(0);
+    break; // deno lint insists
+  case "--version":
+    console.log(`dev ${app_version}`);
     Deno.exit(0);
     break; // deno lint insists
 }
