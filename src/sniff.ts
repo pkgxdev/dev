@@ -116,6 +116,9 @@ export default async function (dir: Path) {
         case "Taskfile.yml":
           pkgs.push({ project: "taskfile.dev", constraint });
           break;
+        case "uv.lock":
+          pkgs.push({ project: "astral.sh/uv", constraint });
+          break;
       }
     } else if (isDirectory) {
       switch (name) {
