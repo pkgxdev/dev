@@ -34,3 +34,15 @@ jobs:
       - run: deno fmt --check .
       - run: deno lint .
       - run: deno check ./app.ts
+
+  test:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: denolib/setup-deno@v2
+        with:
+          deno-version: v2.x
+      - run: deno test --allow-read --allow-write --allow-env
