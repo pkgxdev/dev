@@ -162,7 +162,8 @@ export default async function (dir: Path) {
   async function version_file(path: Path, project: string) {
     let s = (await path.read()).trim();
     if (s.startsWith("v")) s = s.slice(1); // v prefix has no effect but is allowed
-    s = `${project}@${s}`;
+    if (s.match(/^[0-9]/)) s = `@${s}`; // bare versions are `@`ed
+    s = `${project}${s}`;
     pkgs.push(utils.pkg.parse(s));
   }
 
