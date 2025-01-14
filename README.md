@@ -135,6 +135,16 @@ You can add your own environment variables if you like:
 > sanitize the input. We will accept a PR to escape this by default or something
 > ∵ we agree this is maybe a bit insane.
 
+## `dev` & Editors
+
+Most editors if opened via the Terminal will inherit that Terminal’s
+environment. We recommend Visual Studio Code, `dev && code .` works great.
+
+> [!WARNING]
+>
+> Unfortunately, this usually means you *must* open your editor via your
+> terminal.
+
 ## GitHub Actions
 
 ```yaml
