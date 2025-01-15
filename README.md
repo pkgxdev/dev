@@ -142,7 +142,7 @@ environment. We recommend Visual Studio Code, `dev && code .` works great.
 
 > [!WARNING]
 >
-> Unfortunately, this usually means you *must* open your editor via your
+> Unfortunately, this usually means you _must_ open your editor via your
 > terminal.
 
 ## GitHub Actions
