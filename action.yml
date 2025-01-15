@@ -25,5 +25,5 @@ runs:
           eval "$(pkgx +node)"
           set +a
         fi
-        node "$GITHUB_ACTION_PATH"/parse.js ${{ steps.env.outputs.file }}
+        node "$GITHUB_ACTION_PATH"/action.js ${{ steps.env.outputs.file }}
       shell: bash

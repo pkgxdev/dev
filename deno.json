@@ -5,7 +5,7 @@
   "pkgx": "deno^2.1",
   "lint": {
     "include": ["src/", "./app.ts"],
-    "exclude": ["**/*.test.ts", "./parse.js"]
+    "exclude": ["**/*.test.ts", "./action.js"]
   },
   "test": {
     "include": ["src/"]
