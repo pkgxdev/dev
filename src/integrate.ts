@@ -90,7 +90,7 @@ export default async function (
 }
 
 function shells(): [Path, string][] {
-  const eval_ln = 'eval "$(pkgx dev --shellcode)"';
+  const eval_ln = 'eval "$(pkgx --silent dev --shellcode)"';
 
   const zdotdir = flatmap(Deno.env.get("ZDOTDIR"), Path.abs) ?? Path.home();
   const zshpair: [Path, string] = [zdotdir.join(".zshrc"), eval_ln];

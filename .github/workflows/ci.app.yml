@@ -2,23 +2,17 @@ on:
   push:
     branches:
       - main
+    paths:
+      - app.ts
   pull_request:
+    paths:
+      - app.ts
+      - src/**.ts
+      - deno.json
+      - deno.lock
+      - README.md
 
 jobs:
-  test-action:
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        container:
-          - null
-          - ubuntu:latest
-    container: ${{ matrix.container }}
-    steps:
-      - uses: actions/checkout@v4
-      - run: "! deno"
-      - uses: ./
-      - run: deno --version
-
   lint:
     runs-on: ubuntu-latest
     steps:

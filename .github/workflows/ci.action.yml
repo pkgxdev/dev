@@ -1,0 +1,25 @@
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - action.js
+  pull_request:
+    paths:
+      - action.yml
+      - action.js
+
+jobs:
+  test1:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        container:
+          - null
+          - ubuntu:latest
+    container: ${{ matrix.container }}
+    steps:
+      - uses: actions/checkout@v4
+      - run: "! deno"
+      - uses: ./
+      - run: deno --version
