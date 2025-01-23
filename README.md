@@ -9,24 +9,23 @@ packages you need for different projects as you navigate in your shell.
 pkgx dev integrate
 ```
 
-We support macOS & Linux, **Bash** & **Zsh**. PRs are very welcome for more
-shells.
+`dev` requires `pkgx` but at your preference:
 
-> [!IMPORTANT]
->
-> `pkgx` is a required dependency.
->
-> ```sh
-> brew install pkgxdev/made/pkgx || sh <(curl https://pkgx.sh)
-> ```
+```sh
+brew install pkgxdev/made/dev
+dev integrate
+```
+
+We support macOS & Linux, **Bash** & **Zsh**. PRs are very welcome to support
+more shells.
 
 > [!NOTE]
 >
-> `pkgx dev integrate` looks for and edits known `shell.rc` files adding one
+> `dev integrate` looks for and edits known `shell.rc` files adding one
 > line:
 >
 > ```sh
-> eval "$(pkgx dev --shellcode)"
+> eval "$(dev --shellcode)"
 > ```
 >
 > If you don’t trust us (good on you), then do a dry run first:
@@ -35,7 +34,9 @@ shells.
 > pkgx dev integrate --dry-run
 > ```
 >
-> If you like, preview the shellcode: `pkgx dev --shellcode`.
+> If you like, preview the shellcode: `pkgx dev --shellcode`. This command
+> only outputs shellcode, it doesn’t modify any files or do anything else
+> either.
 
 ## Usage
 
