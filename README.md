@@ -2,6 +2,8 @@
 
 `dev` uses `pkgx` and shellcode to automatically, install and activate the
 packages you need for different projects as you navigate in your shell.
+Packages are installed to `~/.pkgx` and not available to your wider system
+without using a tool from the `pkgx` tooling ecosystem.
 
 ## Installation
 
