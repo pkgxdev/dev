@@ -2,10 +2,15 @@
 
 `dev` uses `pkgx` and shellcode to automatically, install and activate the
 packages you need for different projects as you navigate in your shell.
-Packages are installed to `~/.pkgx` and not available to your wider system
-without using a tool from the `pkgx` tooling ecosystem.
 
-## Installation
+Ensure you are using the same versions of tools for your entire stack, during
+dev, across your team and in production.
+
+> [!NOTE]
+> Packages are installed to `~/.pkgx` and not available to your wider system
+> without using a tool from the `pkgx` tooling ecosystem.
+
+## Getting Started
 
 ```sh
 pkgx dev integrate
