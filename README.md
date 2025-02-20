@@ -97,7 +97,8 @@ precisely:
 
 ```toml
 # pkgx:
-#   openssl.org: 1.1.1n
+#   dependencies:
+#     openssl.org: 1.1.1n
 
 [package]
 name = "my cargo project"
@@ -116,9 +117,11 @@ we read a special `pkgx` node:
 ```json
 {
   "pkgx": {
-    "openssl.org": "1.1.1n",
-    "deno": "^2",
-    "npm": null
+    "dependencies": {
+      "openssl.org": "1.1.1n",
+      "deno": "^2",
+      "npm": null
+    }
   }
 }
 ```
@@ -130,10 +133,13 @@ You can also make a `pkgx.yaml` file.
 You can add your own environment variables if you like:
 
 ```toml
+# ---
 # pkgx:
-#   openssl.org: 1.1.1n
-# env:
-#   MY_VAR: my-value
+#   dependencies:
+#     openssl.org: 1.1.1n
+#   env:
+#     MY_VAR: my-value
+# ---
 ```
 
 > [!CAUTION]
