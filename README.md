@@ -96,9 +96,11 @@ We allow you to add YAML front matter to all files to specify versions more
 precisely:
 
 ```toml
+# ---
 # pkgx:
 #   dependencies:
 #     openssl.org: 1.1.1n
+# ---
 
 [package]
 name = "my cargo project"
