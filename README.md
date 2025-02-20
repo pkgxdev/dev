@@ -142,12 +142,10 @@ You can add your own environment variables if you like:
 # ---
 ```
 
-> [!CAUTION]
+> [!NOTE]
 >
-> The assignment of these variables are run through the shell, so you can do
-> stuff like `$(pwd)` if you like. Obviously, be careful with that—we don’t
-> sanitize the input. We will accept a PR to escape this by default or something
-> ∵ we agree this is maybe a bit insane.
+> The environment variable's value is sanitized, so expressions like
+> `MY_VAR: $(sudo rm -rf --no-preserve-root /)` will throw an error.
 
 ## `dev` & Editors
 
