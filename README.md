@@ -110,7 +110,10 @@ name = "my cargo project"
 We allow more terse expressions including eg:
 
 ```toml
-# pkgx: openssl.org@1.1.1n deno^2 npm
+# ---
+# pkgx:
+#   dependencies: openssl.org@1.1.1n deno^2 npm
+# ---
 ```
 
 The major exception being json since it doesn’t support comments, in this case
