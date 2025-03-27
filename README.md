@@ -96,8 +96,11 @@ We allow you to add YAML front matter to all files to specify versions more
 precisely:
 
 ```toml
+# ---
 # pkgx:
-#   openssl.org: 1.1.1n
+#   dependencies:
+#     openssl.org: 1.1.1n
+# ---
 
 [package]
 name = "my cargo project"
@@ -107,7 +110,10 @@ name = "my cargo project"
 We allow more terse expressions including eg:
 
 ```toml
-# pkgx: openssl.org@1.1.1n deno^2 npm
+# ---
+# pkgx:
+#   dependencies: openssl.org@1.1.1n deno^2 npm
+# ---
 ```
 
 The major exception being json since it doesn’t support comments, in this case
@@ -116,9 +122,11 @@ we read a special `pkgx` node:
 ```json
 {
   "pkgx": {
-    "openssl.org": "1.1.1n",
-    "deno": "^2",
-    "npm": null
+    "dependencies": {
+      "openssl.org": "1.1.1n",
+      "deno": "^2",
+      "npm": null
+    }
   }
 }
 ```
@@ -130,18 +138,19 @@ You can also make a `pkgx.yaml` file.
 You can add your own environment variables if you like:
 
 ```toml
+# ---
 # pkgx:
-#   openssl.org: 1.1.1n
-# env:
-#   MY_VAR: my-value
+#   dependencies:
+#     openssl.org: 1.1.1n
+#   env:
+#     MY_VAR: my-value
+# ---
 ```
 
-> [!CAUTION]
+> [!NOTE]
 >
-> The assignment of these variables are run through the shell, so you can do
-> stuff like `$(pwd)` if you like. Obviously, be careful with that—we don’t
-> sanitize the input. We will accept a PR to escape this by default or something
-> ∵ we agree this is maybe a bit insane.
+> The environment variable's value is sanitized, so expressions like
+> `MY_VAR: $(sudo rm -rf --no-preserve-root /)` will throw an error.
 
 ## `dev` & Editors
 
