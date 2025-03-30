@@ -260,47 +260,57 @@ export default async function (dir: Path) {
   }
 
   async function skaffold_yaml(path: Path) {
-    const yaml = await path.readYAML();
-    if (!isPlainObject(yaml)) return;
-    if (
-      yaml.build?.local?.useDockerCLI?.toString() === true ||
-      yaml.deploy?.docker
-    ) {
-      pkgs.push({
-        project: "docker.com/cli",
-        constraint: new semver.Range(`*`),
-      });
+    const yamls = await path.readYAMLAll() as unknown as any[];
+    const lpkgs: PackageRequirement[] = [];
+
+    for (const yaml of yamls) {
+      if (!isPlainObject(yaml)) continue;
+
+      if (
+          yaml.build?.local?.useDockerCLI?.toString() === "true" ||
+          yaml.deploy?.docker
+      ) {
+        lpkgs.push({
+          project: "docker.com/cli",
+          constraint: new semver.Range(`*`),
+        });
+      }
+      if (yaml.deploy?.kubectl) {
+        lpkgs.push({
+          project: "kubernetes.io/kubectl",
+          constraint: new semver.Range(`*`),
+        });
+      }
+      if (yaml.deploy?.kubeContext?.match("minikube")) {
+        lpkgs.push({
+          project: "kubernetes.io/minikube",
+          constraint: new semver.Range(`*`),
+        });
+      }
+      if (yaml.deploy?.helm || yaml.manifests?.helm) {
+        lpkgs.push({
+          project: "helm.sh",
+          constraint: new semver.Range(`*`),
+        });
+      }
+      if (yaml.deploy?.kpt || yaml.manifests?.kpt) {
+        lpkgs.push({
+          project: "kpt.dev",
+          constraint: new semver.Range(`*`),
+        });
+      }
+      if (yaml.manifests?.kustomize) {
+        lpkgs.push({
+          project: "kubernetes.io/kustomize",
+          constraint: new semver.Range(`*`),
+        });
+      }
     }
-    if (yaml.deploy?.kubectl) {
-      pkgs.push({
-        project: "kubernetes.io/kubectl",
-        constraint: new semver.Range(`*`),
-      });
-    }
-    if (yaml.deploy?.kubeContext?.match("minikube")) {
-      pkgs.push({
-        project: "kubernetes.io/minikube",
-        constraint: new semver.Range(`*`),
-      });
-    }
-    if (yaml.deploy?.helm || yaml.manifests?.helm) {
-      pkgs.push({
-        project: "helm.sh",
-        constraint: new semver.Range(`*`),
-      });
-    }
-    if (yaml.deploy?.kpt || yaml.manifests?.kpt) {
-      pkgs.push({
-        project: "kpt.dev",
-        constraint: new semver.Range(`*`),
-      });
-    }
-    if (yaml.manifests?.kustomize) {
-      pkgs.push({
-        project: "kubernetes.io/kustomize",
-        constraint: new semver.Range(`*`),
-      });
-    }
+
+    const deduped = Array.from(
+        new Map(lpkgs.map(pkg => [pkg.project, pkg])).values()
+    );
+    pkgs.push(...deduped)
   }
 
   async function github_actions(path: Path) {

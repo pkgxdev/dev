@@ -1,0 +1,32 @@
+apiVersion: v4beta7
+kind: Config
+metadata:
+  name: skaffold-fixture
+build:
+  local:
+    useDockerCLI: true
+deploy:
+  kubeContext: minikube
+  docker:
+    images: []
+manifests:
+  kpt: []
+  kustomize: {}
+  helm:
+    releases: []
+
+profiles:
+  - name: skaffold-fixture
+---
+apiVersion: v4beta7
+kind: Config
+metadata:
+  name: skaffold-fixture
+deploy:
+  kubectl: {}
+  helm: {}
+manifests:
+  kustomize: {}
+
+profiles:
+  - name: skaffold-fixture

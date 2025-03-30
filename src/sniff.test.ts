@@ -221,6 +221,16 @@ Deno.test("devenv.ts", async (runner) => {
           "kpt.dev",
           "kubernetes.io/kustomize",
         ],
+        [
+          "skaffold.yaml/multidoc/skaffold.yaml",
+          "skaffold.dev",
+          "kubernetes.io/kubectl",
+          "helm.sh",
+          "kpt.dev",
+          "kubernetes.io/minikube",
+          "docker.com/cli",
+          "kubernetes.io/kustomize",
+        ],
       ];
 
       for (const [keyfile, ...deps] of keyfiles) {
