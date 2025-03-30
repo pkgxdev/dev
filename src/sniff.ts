@@ -260,6 +260,7 @@ export default async function (dir: Path) {
   }
 
   async function skaffold_yaml(path: Path) {
+    //deno-lint-ignore no-explicit-any
     const yamls = await path.readYAMLAll() as unknown as any[];
     const lpkgs: PackageRequirement[] = [];
 
@@ -267,8 +268,8 @@ export default async function (dir: Path) {
       if (!isPlainObject(yaml)) continue;
 
       if (
-          yaml.build?.local?.useDockerCLI?.toString() === "true" ||
-          yaml.deploy?.docker
+        yaml.build?.local?.useDockerCLI?.toString() === "true" ||
+        yaml.deploy?.docker
       ) {
         lpkgs.push({
           project: "docker.com/cli",
@@ -308,9 +309,9 @@ export default async function (dir: Path) {
     }
 
     const deduped = Array.from(
-        new Map(lpkgs.map(pkg => [pkg.project, pkg])).values()
+      new Map(lpkgs.map((pkg) => [pkg.project, pkg])).values(),
     );
-    pkgs.push(...deduped)
+    pkgs.push(...deduped);
   }
 
   async function github_actions(path: Path) {

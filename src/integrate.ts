@@ -91,9 +91,10 @@ export default async function (
 }
 
 function shells(): [Path, string][] {
-  const eval_ln = existsSync('/opt/homebrew/bin/dev') || existsSync('/usr/local/bin/dev')
-    ? 'eval "$(dev --shellcode)"'
-    : 'eval "$(pkgx --quiet dev --shellcode)"';
+  const eval_ln =
+    existsSync("/opt/homebrew/bin/dev") || existsSync("/usr/local/bin/dev")
+      ? 'eval "$(dev --shellcode)"'
+      : 'eval "$(pkgx --quiet dev --shellcode)"';
 
   const zdotdir = flatmap(Deno.env.get("ZDOTDIR"), Path.abs) ?? Path.home();
   const zshpair: [Path, string] = [zdotdir.join(".zshrc"), eval_ln];

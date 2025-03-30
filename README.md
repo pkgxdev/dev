@@ -28,8 +28,7 @@ more shells.
 
 > [!NOTE]
 >
-> `dev integrate` looks for and edits known `shell.rc` files adding one
-> line:
+> `dev integrate` looks for and edits known `shell.rc` files adding one line:
 >
 > ```sh
 > eval "$(dev --shellcode)"
@@ -41,9 +40,8 @@ more shells.
 > pkgx dev integrate --dry-run
 > ```
 >
-> If you like, preview the shellcode: `pkgx dev --shellcode`. This command
-> only outputs shellcode, it doesn’t modify any files or do anything else
-> either.
+> If you like, preview the shellcode: `pkgx dev --shellcode`. This command only
+> outputs shellcode, it doesn’t modify any files or do anything else either.
 
 ## Usage
 
