@@ -1,10 +1,6 @@
 import { Path } from "libpkgx";
 
 export default function shellcode() {
-  const datadir = new Path(
-    Deno.env.get("XDG_DATA_HOME")?.trim() || platform_data_home_default(),
-  ).join("pkgx", "dev");
-
   // find self
   const dev_cmd = Deno.env.get("PATH")?.split(":").map((path) =>
     Path.abs(path)?.join("dev")
@@ -18,7 +14,7 @@ _pkgx_chpwd_hook() {
   if ! type _pkgx_dev_try_bye >/dev/null 2>&1 || _pkgx_dev_try_bye; then
     dir="$PWD"
     while [ "$dir" != "/" ]; do
-      if [ -f "${datadir}/$dir/dev.pkgx.activated" ]; then
+      if [ -f "${datadir()}/$dir/dev.pkgx.activated" ]; then
         eval "$(${dev_cmd})"
         break
       fi
@@ -31,7 +27,7 @@ dev() {
   case "$1" in
   off)
     if type -f _pkgx_dev_try_bye >/dev/null 2>&1; then
-      rm "${datadir}$PWD/dev.pkgx.activated"
+      rm "${datadir()}$PWD/dev.pkgx.activated"
       PWD=/ _pkgx_dev_try_bye
     else
       echo "no devenv" >&2
@@ -40,8 +36,8 @@ dev() {
     if [ "$2" ]; then
       "${dev_cmd}" "$@"
     elif ! type -f _pkgx_dev_try_bye >/dev/null 2>&1; then
-      mkdir -p "${datadir}$PWD"
-      touch "${datadir}$PWD/dev.pkgx.activated"
+      mkdir -p "${datadir()}$PWD"
+      touch "${datadir()}$PWD/dev.pkgx.activated"
       eval "$(${dev_cmd})"
     else
       echo "devenv already active" >&2
@@ -72,6 +68,12 @@ else
   echo "pkgx: dev: warning: unsupported shell" >&2
 fi
 `.trim();
+}
+
+export function datadir() {
+  return new Path(
+    Deno.env.get("XDG_DATA_HOME")?.trim() || platform_data_home_default(),
+  ).join("pkgx", "dev");
 }
 
 function platform_data_home_default() {

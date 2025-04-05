@@ -2,7 +2,10 @@ import { Path, utils } from "libpkgx";
 import sniff from "./sniff.ts";
 import shell_escape from "./shell-escape.ts";
 
-export default async function (cwd: Path, opts: { dryrun: boolean }) {
+export default async function (
+  cwd: Path,
+  opts: { dryrun: boolean; quiet: boolean },
+) {
   const snuff = await sniff(cwd);
 
   if (snuff.pkgs.length === 0 && Object.keys(snuff.env).length === 0) {
@@ -20,7 +23,7 @@ export default async function (cwd: Path, opts: { dryrun: boolean }) {
 
   if (snuff.pkgs.length > 0) {
     const cmd = new Deno.Command("pkgx", {
-      args: [...pkgspecs],
+      args: ["--quiet", ...pkgspecs],
       stdout: "piped",
       env: { CLICOLOR_FORCE: "1" }, // unfortunate
     }).spawn();
@@ -54,7 +57,9 @@ export default async function (cwd: Path, opts: { dryrun: boolean }) {
     " ",
   );
 
-  console.error("%c%s", "color: green", pkgspecs.join(" "));
+  if (!opts.quiet) {
+    console.error("%c%s", "color: green", pkgspecs.join(" "));
+  }
 
   console.log(`
   eval "_pkgx_dev_try_bye() {

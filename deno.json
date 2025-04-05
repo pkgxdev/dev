@@ -12,7 +12,7 @@
   },
   "imports": {
     "libpkgx": "https://raw.githubusercontent.com/pkgxdev/libpkgx/refs/tags/v0.21.0/mod.ts",
-    "libpkgx/": "https://raw.githubusercontent.com/pkgxdev/libpkgx/refs/tags/v0.20.1/src/",
+    "libpkgx/": "https://raw.githubusercontent.com/pkgxdev/libpkgx/refs/tags/v0.21.0/src/",
     "is-what": "https://deno.land/x/is_what@v4.1.15/src/index.ts",
     "outdent": "https://deno.land/x/outdent@v0.8.0/mod.ts"
   }
