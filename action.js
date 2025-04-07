@@ -24,7 +24,7 @@ const replaceEnvVars = (str) => {
 let found = false;
 
 readInterface.on("line", (line) => {
-  if (!found) found = line == "set -a";
+  if (!found) found = line.trim() == "set -a";
   if (!found) return;
   const match = line.match(/^([^=]+)=(.*)$/);
   if (match) {
