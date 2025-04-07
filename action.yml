@@ -21,10 +21,8 @@ runs:
       shell: bash
 
     - run: |
-        if ! node --version >/dev/null 2>&1; then
-          set -a
-          eval "$(pkgx +node)"
-          set +a
+        if ! command -v node >/dev/null 2>&1; then
+          node() { pkgx node^20 "$@" || }
         fi
         node "$GITHUB_ACTION_PATH"/action.js ${{ steps.env.outputs.file }}
       shell: bash
