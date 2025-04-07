@@ -13,7 +13,7 @@ const stripQuotes = (str) =>
 const replaceEnvVars = (str) => {
   const value = str
     .replaceAll(
-      /\$\{([a-zA-Z0-9_]+):[+-]:\$[a-zA-Z0-9_]+\}/g,
+      /\$\{([a-zA-Z0-9_]+):\+:\$[a-zA-Z0-9_]+\}/g,
       (_, key) => ((v) => v ? `:${v}` : "")(process.env[key]),
     )
     .replaceAll(/\$\{([a-zA-Z0-9_]+)\}/g, (_, key) => process.env[key] ?? "")
