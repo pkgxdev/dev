@@ -61,17 +61,16 @@ v20.19.0
 
 `pkgm` installs `dev`-aware packages to `/usr/local/bin`. Provided you have
 `/usr/local/bin/dev` installed and you have activated `dev` in your project
-directories the `node` that is invoked is swapped out *when invoked*.
+directories the `node` that is invoked is swapped out _when invoked_.
 
 This is the recommended way to use `dev` because it works everywhere and not
 just the terminal.
 
 ## `dev` via Shellcode
 
-Shellcode works *as well* and is your preference. It has notable caveats
-with regard to use in tools like editors. It also requires you to add
-shellcode to your `shell.rc` files and thus is more intrusive (depending on
-your outlook).
+Shellcode works _as well_ and is your preference. It has notable caveats with
+regard to use in tools like editors. It also requires you to add shellcode to
+your `shell.rc` files and thus is more intrusive (depending on your outlook).
 
 ```sh
 pkgx dev integrate

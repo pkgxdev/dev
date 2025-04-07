@@ -21,7 +21,7 @@ const parsedArgs = parseArgs(Deno.args, {
     q: "quiet",
   },
   collect: ["quiet"],
-  boolean: ["help", "version", "shellcode"],
+  boolean: ["help", "version", "shellcode", "quiet"],
   default: {
     "dry-run": false,
   },

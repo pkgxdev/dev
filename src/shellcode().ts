@@ -13,9 +13,9 @@ export default function shellcode() {
 _pkgx_chpwd_hook() {
   if ! type _pkgx_dev_try_bye >/dev/null 2>&1 || _pkgx_dev_try_bye; then
     dir="$PWD"
-    while [ "$dir" != "/" ]; do
+    while [ "$dir" != / -a "$dir" != . ]; do
       if [ -f "${datadir()}/$dir/dev.pkgx.activated" ]; then
-        eval "$(${dev_cmd})"
+        eval "$(${dev_cmd})" "$dir"
         break
       fi
       dir="$(dirname "$dir")"
