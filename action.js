@@ -30,7 +30,7 @@ readInterface.on("line", (line) => {
   if (match) {
     const [_, key, value_] = match;
     const value = stripQuotes(value_);
-    if (key === "PATH") {
+    if (key.trim() === "PATH") {
       value
         .replaceAll("${PATH:+:$PATH}", "")
         .replaceAll("$PATH", "")
