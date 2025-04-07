@@ -21,12 +21,16 @@ const replaceEnvVars = (str) => {
   return value;
 };
 
+let found = false;
+
 readInterface.on("line", (line) => {
+  if (!found) found = line.trim() == "set -a";
+  if (!found) return;
   const match = line.match(/^([^=]+)=(.*)$/);
   if (match) {
     const [_, key, value_] = match;
     const value = stripQuotes(value_);
-    if (key === "PATH") {
+    if (key.trim() === "PATH") {
       value
         .replaceAll("${PATH:+:$PATH}", "")
         .replaceAll("$PATH", "")

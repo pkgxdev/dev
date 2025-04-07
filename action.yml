@@ -4,12 +4,13 @@ description:
 
 inputs:
   path:
+    description: path that should be evaluated by `dev`
     required: false
 
 runs:
   using: composite
   steps:
-    - uses: pkgxdev/setup@v3
+    - uses: pkgxdev/setup@v4
 
     - run: |
         TMP="$(mktemp)"
@@ -20,10 +21,10 @@ runs:
       shell: bash
 
     - run: |
-        if ! node --version >/dev/null 2>&1; then
-          set -a
-          eval "$(pkgx +node)"
-          set +a
+        if ! command -v node >/dev/null 2>&1; then
+          node() {
+            pkgx node^20 "$@"
+          }
         fi
         node "$GITHUB_ACTION_PATH"/action.js ${{ steps.env.outputs.file }}
       shell: bash

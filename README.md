@@ -12,6 +12,66 @@ dev, across your team and in production.
 
 ## Getting Started
 
+Since `dev` v1.7.0 we integrate with `pkgm` and this is the recommended way to
+use `dev`.
+
+> [!IMPORTANT]
+>
+> `dev` must be installed to `/usr/local/bin/dev` for this route to work:
+>
+> ```sh
+> sudo pkgm install dev  # use of `shim` is also fine
+> ```
+
+```sh
+$ cd my-project
+$ ls
+package.json
+
+$ node --version
+command not found: node
+
+$ sudo pkgm install dev node
+$ node --version && which node
+v23.11.0
+/usr/local/bin/node
+
+$ cat package.json | jq .engines
+{
+  "node": "^20"
+}
+
+$ dev
+activated `~/my-project` (+node^20)
+
+$ node --version && which node
+v20.19.0
+/usr/local/bin/node
+
+$ cd ..
+$ node --version && which node
+v23.11.0
+/usr/local/bin/node
+
+$ cd -
+$ node --version && which node
+v20.19.0
+/usr/local/bin/node
+```
+
+`pkgm` installs `dev`-aware packages to `/usr/local/bin`. Provided you have
+`/usr/local/bin/dev` installed and you have activated `dev` in your project
+directories the `node` that is invoked is swapped out _when invoked_.
+
+This is the recommended way to use `dev` because it works everywhere and not
+just the terminal.
+
+## `dev` via Shellcode
+
+Shellcode works _as well_ and is your preference. It has notable caveats with
+regard to use in tools like editors. It also requires you to add shellcode to
+your `shell.rc` files and thus is more intrusive (depending on your outlook).
+
 ```sh
 pkgx dev integrate
 ```
@@ -78,6 +138,7 @@ command not found: node
 > ```sh
 > $ cd my-project
 > $ eval "$(pkgx dev)"
+> +deno^2
 > ```
 >
 > The devenv will only exist for the duration of your shell session.
@@ -166,8 +227,8 @@ environment. We recommend Visual Studio Code, `dev && code .` works great.
 - uses: pkgxdev/dev@v1
 ```
 
-Installs needed packages and sets up the environment the same as `dev` does in
-your terminal.
+Installs needed packages (via `pkgx`) and sets up the environment the same as
+`dev` does in your terminal.
 
 ## Contributing
 
