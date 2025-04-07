@@ -4,6 +4,7 @@ description:
 
 inputs:
   path:
+    description: path that should be evaluated by `dev`
     required: false
 
 runs:

@@ -13,7 +13,7 @@ const stripQuotes = (str) =>
 const replaceEnvVars = (str) => {
   const value = str
     .replaceAll(
-      /\$\{([a-zA-Z0-9_]+):\+:\$[a-zA-Z0-9_]+\}/g,
+      /\$\{([a-zA-Z0-9_]+):[+-]:\$[a-zA-Z0-9_]+\}/g,
       (_, key) => ((v) => v ? `:${v}` : "")(process.env[key]),
     )
     .replaceAll(/\$\{([a-zA-Z0-9_]+)\}/g, (_, key) => process.env[key] ?? "")
@@ -21,7 +21,11 @@ const replaceEnvVars = (str) => {
   return value;
 };
 
+let found = false;
+
 readInterface.on("line", (line) => {
+  if (!found) found = line == "set -a";
+  if (!found) return;
   const match = line.match(/^([^=]+)=(.*)$/);
   if (match) {
     const [_, key, value_] = match;
