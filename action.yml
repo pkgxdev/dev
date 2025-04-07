@@ -22,7 +22,9 @@ runs:
 
     - run: |
         if ! command -v node >/dev/null 2>&1; then
-          node() { pkgx node^20 "$@" }
+          node() {
+            pkgx node^20 "$@"
+          }
         fi
         node "$GITHUB_ACTION_PATH"/action.js ${{ steps.env.outputs.file }}
       shell: bash
