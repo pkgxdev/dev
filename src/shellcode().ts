@@ -27,7 +27,14 @@ dev() {
   case "$1" in
   off)
     if type -f _pkgx_dev_try_bye >/dev/null 2>&1; then
-      rm "${datadir()}$PWD/dev.pkgx.activated"
+      dir="$PWD"
+      while [ "$dir" != / -a "$dir" != . ]; do
+        if [ -f "${datadir()}/$dir/dev.pkgx.activated" ]; then
+          rm "${datadir()}/$dir/dev.pkgx.activated"
+          break
+        fi
+        dir="$(dirname "$dir")"
+      done
       PWD=/ _pkgx_dev_try_bye
     else
       echo "no devenv" >&2
