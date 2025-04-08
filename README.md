@@ -41,7 +41,7 @@ $ cat package.json | jq .engines
   "node": "^20"
 }
 
-$ dev
+$ dev .
 activated `~/my-project` (+node^20)
 
 $ node --version && which node
@@ -71,6 +71,9 @@ just the terminal.
 Shellcode works _as well_ and is your preference. It has notable caveats with
 regard to use in tools like editors. It also requires you to add shellcode to
 your `shell.rc` files and thus is more intrusive (depending on your outlook).
+
+A great advantage of the shellcode is not needing to install tools you may never
+need again when exploring new open source projects.
 
 ```sh
 pkgx dev integrate
@@ -103,7 +106,7 @@ more shells.
 > If you like, preview the shellcode: `pkgx dev --shellcode`. This command only
 > outputs shellcode, it doesn’t modify any files or do anything else either.
 
-## Usage
+### Usage
 
 ```sh
 $ cd my-project
@@ -130,15 +133,20 @@ command not found: node
 
 > [!TIP]
 >
-> ### Try Before You `vi`
+> #### Try Before You `vi`
 >
 > Modifying your `shell.rc` can be… _intimidating_. If you just want to
 > temporarily try `dev` out before you `:wq`—we got you:
 >
 > ```sh
 > $ cd my-project
-> $ eval "$(pkgx dev)"
+> $ eval "$(pkgx dev .)"
 > +deno^2
+> $ deno --version
+> deno 2.1.1
+>
+> $ dev off
+> # ^^ or close your terminal
 > ```
 >
 > The devenv will only exist for the duration of your shell session.
@@ -208,18 +216,16 @@ You can add your own environment variables if you like:
 
 > [!NOTE]
 >
-> The environment variable's value is sanitized, so expressions like
-> `MY_VAR: $(sudo rm -rf --no-preserve-root /)` will throw an error.
+> - Adding environment variables only works via the `shellcode` route.
+> - The environment variable's value is sanitized, so expressions like
+>   `MY_VAR: $(sudo rm -rf --no-preserve-root /)` will throw an error.
+> - We recommend `direnv` instead of this route.
 
 ## `dev` & Editors
 
-Most editors if opened via the Terminal will inherit that Terminal’s
-environment. We recommend Visual Studio Code, `dev && code .` works great.
-
-> [!WARNING]
->
-> Unfortunately, this usually means you _must_ open your editor via your
-> terminal.
+The sure fire way for things to work in editors is to use the `dev`/`pkgm`
+combo. Having said this most editors if opened via the Terminal will inherit
+that Terminal’s environment.
 
 ## GitHub Actions
 
@@ -227,8 +233,8 @@ environment. We recommend Visual Studio Code, `dev && code .` works great.
 - uses: pkgxdev/dev@v1
 ```
 
-Installs needed packages (via `pkgx`) and sets up the environment the same as
-`dev` does in your terminal.
+Our action installs needed packages (via `pkgx`) and sets up the environment the
+same as `dev` does in your terminal.
 
 ## Contributing
 
