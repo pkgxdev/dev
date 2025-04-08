@@ -12,8 +12,8 @@ dev, across your team and in production.
 
 ## Getting Started
 
-Since `dev` v1.7.0 we integrate with `pkgm` and this is the recommended way to
-use `dev`.
+Since `dev` v1.8.0 we integrate with `pkgm` (^0.11) and this is the
+recommended way to use `dev`.
 
 > [!IMPORTANT]
 >
