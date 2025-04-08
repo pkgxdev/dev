@@ -83,7 +83,7 @@ if (parsedArgs.help) {
       break;
 
     case undefined:
-      {
+      if (Deno.stdout.isTerminal()) {
         const cwd = Path.cwd();
         const { pkgs } = await sniff(cwd);
         if (
@@ -103,6 +103,9 @@ if (parsedArgs.help) {
         } else {
           console.log("%cno keyfiles found", "color: red");
         }
+      } else {
+        const cwd = Path.cwd();
+        await dump(cwd, { dryrun, quiet });
       }
       break;
 

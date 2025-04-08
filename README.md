@@ -140,13 +140,10 @@ command not found: node
 >
 > ```sh
 > $ cd my-project
-> $ eval "$(pkgx dev .)"
+> $ eval "$(pkgx dev)"
 > +deno^2
 > $ deno --version
 > deno 2.1.1
->
-> $ dev off
-> # ^^ or close your terminal
 > ```
 >
 > The devenv will only exist for the duration of your shell session.
