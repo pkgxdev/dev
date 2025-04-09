@@ -12,15 +12,16 @@ dev, across your team and in production.
 
 ## Getting Started
 
-Since `dev` v1.8.0 we integrate with `pkgm` (^0.11) and this is the
-recommended way to use `dev`.
+Since `dev` v1.8.0 we integrate with `pkgm` (^0.11) and this is the recommended
+way to use `dev`.
 
 > [!IMPORTANT]
 >
-> `dev` must be installed to `/usr/local/bin/dev` for this route to work:
+> Both `dev` and the packages you want to be `dev`-aware must be installed to
+> `/usr/local/` for this to work. (`dev` (but only `dev`) can be a `pkgm shim`).
 >
 > ```sh
-> sudo pkgm install dev  # use of `shim` is also fine
+> sudo pkgm install dev node@22
 > ```
 
 ```sh
@@ -68,9 +69,14 @@ just the terminal.
 
 ## `dev` via Shellcode
 
-Shellcode works _as well_ and is your preference. It has notable caveats with
-regard to use in tools like editors. It also requires you to add shellcode to
-your `shell.rc` files and thus is more intrusive (depending on your outlook).
+Using `dev` via shellcode requires hooks to be installed in your shell. It
+is handy in that no tool needs to be installed. It is problematic in that
+shell hooks are more invasive and don’t work in other tools like editors.
+
+---
+
+<details>
+<summary>Using <code>dev</code> via shellcode…</summary>
 
 A great advantage of the shellcode is not needing to install tools you may never
 need again when exploring new open source projects.
@@ -147,6 +153,10 @@ command not found: node
 > ```
 >
 > The devenv will only exist for the duration of your shell session.
+
+</details>
+
+---
 
 ## How Packages are Determined
 
