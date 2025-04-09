@@ -12,15 +12,16 @@ dev, across your team and in production.
 
 ## Getting Started
 
-Since `dev` v1.8.0 we integrate with `pkgm` (^0.11) and this is the
-recommended way to use `dev`.
+Since `dev` v1.8.0 we integrate with `pkgm` (^0.11) and this is the recommended
+way to use `dev`.
 
 > [!IMPORTANT]
 >
-> `dev` must be installed to `/usr/local/bin/dev` for this route to work:
+> Both `dev` and the packages you want to be `dev`-aware must be installed to
+> `/usr/local/` for this to work. (`dev` (but only `dev`) can be a `pkgm shim`).
 >
 > ```sh
-> sudo pkgm install dev  # use of `shim` is also fine
+> sudo pkgm install dev node@22
 > ```
 
 ```sh
