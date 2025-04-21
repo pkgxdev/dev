@@ -90,6 +90,7 @@ export default async function (dir: Path) {
           pkgs.push({ project: "yarnpkg.com", constraint });
           await read_YAML_FM(path);
           break;
+        case "bun.lock":
         case "bun.lockb":
           pkgs.push({ project: "bun.sh", constraint: new semver.Range(">=1") });
           break;
