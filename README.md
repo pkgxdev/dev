@@ -69,9 +69,9 @@ just the terminal.
 
 ## `dev` via Shellcode
 
-Using `dev` via shellcode requires hooks to be installed in your shell. It
-is handy in that no tool needs to be installed. It is problematic in that
-shell hooks are more invasive and don’t work in other tools like editors.
+Using `dev` via shellcode requires hooks to be installed in your shell. It is
+handy in that no tool needs to be installed. It is problematic in that shell
+hooks are more invasive and don’t work in other tools like editors.
 
 ---
 
