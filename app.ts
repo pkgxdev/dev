@@ -43,7 +43,7 @@ if (parsedArgs.help) {
 } else {
   const subcommand = parsedArgs._[0];
   const dryrun = parsedArgs["dry-run"] as boolean;
-  const quiet = parsedArgs["quiet"] != undefined;
+  const quiet = Array.isArray(parsedArgs["quiet"]) ? parsedArgs['quiet'].length : parsedArgs['quiet'];
 
   switch (subcommand) {
     case "integrate":
