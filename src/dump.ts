@@ -64,7 +64,7 @@ export default async function (
   console.log(`
   eval "_pkgx_dev_try_bye() {
     suffix=\\"\\\${PWD#\\"${cwd}\\"}\\"
-    [ \\"\\$PWD\\" = \\"${cwd}$suffix\\" ] && return 1
+    [ \\"\\$PWD\\" = \\"${cwd}\\$suffix\\" ] && return 1
     echo -e \\"\\033[31m${bye_bye_msg}\\033[0m\\" >&2
     ${undo.trim()}
     unset -f _pkgx_dev_try_bye
