@@ -100,7 +100,7 @@ more shells.
 > `dev integrate` looks for and edits known `shell.rc` files adding one line:
 >
 > ```sh
-> eval "$(dev --shellcode)"
+> eval "$(pkgx --quiet dev --shellcode)"
 > ```
 >
 > If you don’t trust us (good on you), then do a dry run first:
