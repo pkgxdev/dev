@@ -15,7 +15,7 @@ _pkgx_chpwd_hook() {
     dir="$PWD"
     while [ "$dir" != / -a "$dir" != . ]; do
       if [ -f "${datadir()}/$dir/dev.pkgx.activated" ]; then
-        eval "$(${dev_cmd})" "$dir"
+        eval "$(${dev_cmd} "$dir")"
         break
       fi
       dir="$(dirname "$dir")"
