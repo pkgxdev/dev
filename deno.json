@@ -7,7 +7,7 @@
     "include": ["src/", "./app.ts"],
     "exclude": ["**/*.test.ts", "./action.js"],
     "rules": {
-      "exclude": ["no-import-prefix"]
+      "exclude": ["no-import-prefix", "no-unversioned-import"]
     }
   },
   "test": {
