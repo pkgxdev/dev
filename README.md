@@ -6,7 +6,7 @@ packages you need for different projects as you navigate in your shell.
 Ensure you are using the same versions of tools for your entire stack, during
 dev, across your team and in production.
 
-> [!NOTE]
+> [!NOTE]!!
 > Packages are installed to `~/.pkgx` and not available to your wider system
 > without using a tool from the `pkgx` tooling ecosystem.
 
@@ -15,7 +15,7 @@ dev, across your team and in production.
 Since `dev` v1.8.0 we integrate with `pkgm` (^0.11) and this is the recommended
 way to use `dev`.
 
-> [!IMPORTANT]
+> [!IMPORTANT] !!
 >
 > Both `dev` and the packages you want to be `dev`-aware must be installed to
 > `/usr/local/` for this to work. (`dev` (but only `dev`) can be a `pkgm shim`).
@@ -95,7 +95,7 @@ dev integrate
 We support macOS & Linux, **Bash** & **Zsh**. PRs are very welcome to support
 more shells.
 
-> [!NOTE]
+> [!NOTE] !!
 >
 > `dev integrate` looks for and edits known `shell.rc` files adding one line:
 >
