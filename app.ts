@@ -137,7 +137,7 @@ if (parsedArgs.help) {
             "dev.pkgx.activated",
           ).touch();
           console.log(
-            "%cactived",
+            "%cactivated",
             "color: green",
             pkgs.map(utils.pkg.str).join(" "),
           );
