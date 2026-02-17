@@ -97,6 +97,9 @@ export default async function (dir: Path) {
         case "pnpm-lock.yaml":
           pkgs.push({ project: "pnpm.io", constraint });
           break;
+        case "pom.xml":
+          pkgs.push({ project: "maven.apache.org", constraint });
+          break;
         case "pixi.toml":
           pkgs.push({ project: "prefix.dev", constraint });
           await read_YAML_FM(path);
